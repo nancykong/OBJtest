@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>three.js</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+		<style>
+			body {
+margin:0;
+			}
+		canvas{
+            background: #ffffff;
+        }
+            #container{
+                margin-left: -15vw;
+            }
+		</style>
+	</head>
+
+	<body>
+   <link href='https://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+ <article class="article">
+  <header class="header">
+    <h1 class="headline">Gender Pay Gap Narrows Significantly for the First Time Since Recession</h1>
+    <h2> <small>The widely cited female-to-male earnings measure rises to 80.5%—or 81 cents for every dollar a man makes</small></h2>
+
+    <div class="meta">
+      <span class="author">BY <span class="author-name"> Sharon Nunn
+    </span>
+      <span class="pub-date"> March 16, 2018</span>
+        </span></div>
+  </header>
+
+		<script src="js/three.js"></script>
+
+		<script src="js/DDSLoader.js"></script>
+		<script src="js/MTLLoader.js"></script>
+		<script src="js/OBJLoader.js"></script>
+		<script src="js/Detector.js"></script>
+		<script src="js/stats.min.js"></script>
+		<script src="js/OrbitControls.js"></script>
+		<script src="/path/to/noframework.waypoints.min.js"></script>
+		<link rel="stylesheet" href="css/style.css">
+<p> The gap between the median income women and men make in the U.S. narrowed significantly for the first time since the recession.</p>
+
+<p>Men ages 15 and older employed full-time brought in a median income of $51,640 in 2016 for year-round work, compared with the $41,554 median income women made, adjusted for inflation, the Census Bureau said Tuesday.</p>
+
+<p>This pushes the widely cited female-to-male earnings measure to 80.5%—or 81 cents for every dollar a man makes—up 0.9 percentage point from 79.6% in 2015.</p>
+
+<p>Median income for men declined in 2016 after years of sluggish or no growth, while women’s median pay increased slightly, boosting the earnings measure higher.</p>
+
+<p>“We do see not quite as rosy of a picture when we talk about men’s earnings, on top of so many years of stagnant wage growth for men,” said Elise Gould, a senior economist at the left-leaning Economic Policy Institute.</p>
+
+<p>The gap had narrowed slightly in recent years, but was not statistically different until 2016’s bump in pay. The narrowing of the gender pay gap stagnated in the 2000s. The gap had narrowed at a sharp clip in the two decades after 1980, when the female-to-male earnings measure sat at 60%.</p>
+
+<h2>Mind the Gap</h2>
+
+		<div id="container">
+		<canvas id="myCanvas"></canvas>
+		<script>
+            
+            if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+			var camera, controls, scene, renderer;
+
+//			var container, stats;
+
+			var camera, scene, renderer;
+
+			var mouseX = 0, mouseY = 0;
+
+			var windowHalfX = window.innerWidth / 3;
+			var windowHalfY = window.innerHeight / 3;
+
+
+			init();
+			animate();
+
+
+			function init() {
+
+//				container = document.getElementById( "container" );
+//				document.body.appendChild( container );
+
+				camera = new THREE.PerspectiveCamera(8, window.innerWidth / window.innerHeight, 1, 2000 );
+				camera.position.set(0,20,-20);
+				// scene
+
+				scene = new THREE.Scene();
+
+				var ambientLight = new THREE.AmbientLight( 0xffffff, 0.8 );
+				scene.add( ambientLight );
+
+				var pointLight = new THREE.AmbientLight( 0xffffff, 0.8 );
+				scene.add( pointLight );
+
+//				var pointLight = new THREE.PointLight( 0xffffff, 0.8 );
+//				camera.add( pointLight );
+//				scene.add( camera );
+
+				// model
+
+				var onProgress = function ( xhr ) {
+
+					if ( xhr.lengthComputable ) {
+
+						var percentComplete = xhr.loaded / xhr.total * 100;
+						console.log( Math.round( percentComplete, 2 ) + '% downloaded' );
+
+					}
+
+				};
+
+				var onError = function ( xhr ) { };
+
+//				THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
+
+				var obj = new THREE.MTLLoader()
+					.setPath( 'money/' )
+					.load( 'test.mtl', function ( materials ) {
+
+						materials.preload();
+
+						new THREE.OBJLoader()
+							.setMaterials( materials )
+							.setPath( 'money/' )
+							.load( 'test.obj', function ( object ) {
+
+	
+								scene.add( object );
+
+							}, onProgress, onError );
+
+					} );
+
+
+				renderer = new THREE.WebGLRenderer({canvas: document.getElementById('myCanvas'), antialias:true});
+				renderer.setPixelRatio( window.devicePixelRatio );
+				renderer.setClearColor(0xffffff);
+				renderer.setSize( window.innerWidth*0.8, window.innerHeight*0.8 );
+				container.appendChild( renderer.domElement );
+
+                
+//                document.addEventListener( 'mousewheel', onDocumentMouseWheel, false );
+
+//				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
+                controls = new THREE.OrbitControls(camera, renderer.domElement);
+				//
+
+//				window.addEventListener( 'resize', onWindowResize, false );
+
+			}
+
+			function animate() {
+
+				requestAnimationFrame( animate );
+				render();
+
+			}
+
+			function render() {
+//
+				camera.position.x += ( - mouseX - camera.position.x ) * .001;
+				camera.position.y += ( + mouseY - camera.position.y ) * .001;
+//
+				camera.lookAt( scene.position );
+
+				renderer.render( scene, camera );
+                controls.update();
+
+			}
+
+			function pagepeep(){
+				//look for 1) is the id in the viewport, 
+				// if it is we want to calculate the position ... scroll y position blabla
+				//
+			}
+
+		</script>
+				</div>
+
+<p>Despite women earning a majority of college degrees in recent years, the gender pay gap is wider between men and women bachelor’s degree-holders. Women with college degrees earn 72.4% of similar men. Less-educated workers typically hold jobs that are considered interchangeable and often have less ability to obtain substantial pay raises.</p>
+      
+<p>The gap between men and women’s earnings stems from a host of factors, most prominently career choice and the decision to rear children, while discrimination also plays a role, according to researchers.</p>
+
+<p>Women often choose lower-paying jobs and industries, such as social work, and the lost time from having and raising a child can drag down salaries in white-collar fields that typically give substantially larger financial rewards to those logging the longest hours and who job-hop often.</p>
+
+<p>Experts estimate these two factors alone contribute to more than half of the pay disparity, while a third of the gap is caused by other hard-to-measure factors such as discrimination. Discrimination may manifest itself directly, if a woman is offered less pay than a male counterpart, or indirectly, if a woman decides to forgo a male-dominated field because she fears discrimination.</p>
+
+<p>Legislative efforts to close the wage gap include laws that ban employers from prohibiting employees from discussing pay, with Democrat-led legislatures in California, Colorado and the District of Columbia introducing similar bills in recent years. Republican legislators point out current law already makes it illegal for employers to pay women less for equal work.</p>
+
+<p>Other solutions include creating more affordable child-care options and expanding paid family leave, the latter of which the Trump administration has expressed support. For top-tier workers, flexible schedules and making workers more interchangeable may have the biggest impact, economists say.</p>
+        </article>
+	</body>
+</html>
