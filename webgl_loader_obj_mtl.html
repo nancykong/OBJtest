@@ -37,7 +37,6 @@
 		<script src="js/Detector.js"></script>
 		<script src="js/stats.min.js"></script>
 		<script src="js/OrbitControls.js"></script>
-		<script src="js/DeviceOrientationControls.js"></script>
 
 		<script>
 
@@ -62,8 +61,9 @@
 
 				camera = new THREE.PerspectiveCamera( 5, window.innerWidth / window.innerHeight, 1, 2000 );
 				camera.position.z = 5;
+
                 
-                controls = new THREE.DeviceOrientationControls( camera );
+                
 
 				// scene
 
@@ -131,7 +131,7 @@
 
 				//
 
-//				window.addEventListener( 'resize', onWindowResize, false );
+				window.addEventListener( 'resize', onWindowResize, false );
 
 			}
 
@@ -158,8 +158,9 @@
 
 			function animate() {
 
-				requestAnimationFrame( animate );
-				render();
+				window.requestAnimationFrame( animate );
+                controls.update();
+				renderer.render( scene, camera );
 
 			}
 
@@ -173,6 +174,12 @@
 				renderer.render( scene, camera );
                 controls.update();
 
+			}
+            
+            function onWindowResize() {
+				camera.aspect = window.innerWidth / window.innerHeight;
+				camera.updateProjectionMatrix();
+				renderer.setSize( window.innerWidth, window.innerHeight );
 			}
 
 		</script>
