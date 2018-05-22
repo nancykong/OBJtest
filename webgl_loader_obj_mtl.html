@@ -39,6 +39,8 @@
 		<script src="js/OrbitControls.js"></script>
 
 		<script>
+            if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
+			var camera, controls, scene, renderer;
 
 //			var container, stats;
 
