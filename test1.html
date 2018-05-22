@@ -87,17 +87,15 @@
                 
 
 
-				for ( var i = 0; i < 500; i ++ ) {
 
 					var mesh = new THREE.Mesh( geometry, material );
-					mesh.position.x = Math.random() * 1600 - 800;
+					mesh.position.x = 0;
 					mesh.position.y = 0;
-					mesh.position.z = Math.random() * 1600 - 800;
+					mesh.position.z = 0;
 					mesh.updateMatrix();
 					mesh.matrixAutoUpdate = false;
 					scene.add( mesh );
 
-				}
 
 				// lights
 
